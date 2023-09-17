@@ -4,7 +4,7 @@ import chatSlice from "./chatSlice";
 
 
 const store = configureStore({
-    reducer: { chatHandler: chatSlice }
+    reducer: { chat: chatSlice }
 })
 
 export default store

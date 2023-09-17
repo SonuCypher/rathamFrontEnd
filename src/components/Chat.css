@@ -1,0 +1,40 @@
+.chat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .got-it-button {
+    background-color: #142e4a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+.date-picker{
+    overflow-x: auto;
+    display: flex;
+}
+.dates{
+    background-color: #142e4a;
+    color: white;
+    border: 2px solid;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .dates:hover{
+    background-color: #007bff;
+  }
+
+  .age-dropdown {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }

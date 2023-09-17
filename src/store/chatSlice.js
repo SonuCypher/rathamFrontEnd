@@ -5,22 +5,25 @@ const chatSlice = createSlice({
   initialState: {
     name: "",
     age: "",
+    showChatBot: false
   },
   reducers: {
     addName(state, action) {
       const data = action.payload;
-      console.log("addname", data);
       state.name = data;
     },
     addAge(state, action) {
       const data = action.payload;
-      console.log(data);
       state.age = data;
     },
+    toggleChatBot(state, action) {
+        const data = action.payload;
+        state.showChatBot = data
+      },
   },
 });
 
 
-export const { addName, addAge } = chatSlice.actions;
+export const { addName, addAge,toggleChatBot } = chatSlice.actions;
 
 export default chatSlice.reducer;
