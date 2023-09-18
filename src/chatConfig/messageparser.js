@@ -24,14 +24,3 @@ const MessageParser = ({ children, actions }) => {
   export default MessageParser;
 
 
-  /*
- if (actions.waitingForName) {
-      actions.handleName(message);
-    } else if (actions.waitingForAge) {
-      actions.handleAgeSelect(message);
-    } else {
-      // Handle other user responses here
-      // For example, ask for additional information
-    }
-  */
-

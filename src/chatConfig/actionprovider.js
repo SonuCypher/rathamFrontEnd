@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createClientMessage } from "react-chatbot-kit";
 import { useDispatch } from "react-redux";
-import { addName, addAge } from "../store/chatSlice";
+import { addName, addAge , toggleChatBot } from "../store/chatSlice";
 
 const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   
@@ -9,7 +9,6 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   const [selectDate, setSelectDate] = useState(false);
   const [nameState, setNameState] = useState(false);
   const [ageState, setAgeState] = useState(false);
-//   const [Date,setDate]= useState("");
 const dispatch = useDispatch()
 
   const gotItHandler = () => {
@@ -57,7 +56,41 @@ const dispatch = useDispatch()
         messages: [...prev.messages, ageSelect],
       }));
       setNameState(false)
+      setAgeState(true)
   }
+
+  const clientAgeHandler = (age) => {
+    const clientMessage = createClientMessage(age);
+    setState((prev) => ({
+      ...prev,
+      messages: [...prev.messages, clientMessage],
+    }));
+    if (age) {
+      dispatch(addAge(age));
+      setAgeState(false);
+    }
+   const exitMessage = createChatBotMessage("Thank you. In 5 seconds, bot will exit")
+   setState((prev) => ({
+    ...prev,
+    messages: [...prev.messages, exitMessage],
+  }));
+
+
+   let timer = 5
+  const exitFunction=()=> {
+     const timeMessage = createChatBotMessage(`...${timer}`)
+   setState((prev) => ({
+     ...prev,
+     messages: [...prev.messages, timeMessage],
+   }));
+   timer--;
+   if(timer < 0){
+     clearInterval(interval)
+     dispatch(toggleChatBot(false))
+   }}
+const interval = setInterval(exitFunction, 1000)
+  
+}
 
   return (
     <div>
@@ -67,6 +100,7 @@ const dispatch = useDispatch()
             gotItHandler,
             dateHandler,
             clientNameHandler,
+            clientAgeHandler,
             clickGotIt,
             selectDate,
             nameState,
@@ -80,71 +114,4 @@ const dispatch = useDispatch()
 
 export default ActionProvider;
 
-/* 
-  const [gotItClicked, setGotItClicked] = useState(false);
-  const [waitingForName, setWaitingForName] = useState(false);
-  const [waitingForAge, setWaitingForAge] = useState(false);
-  const dispatch = useDispatch();
- 
 
-  const handleGotIt = () => {
-    const userMessage = createClientMessage("Got it.");
-    setState((prev) => ({
-      ...prev,
-      messages: [...prev.messages, userMessage],
-    }));
-
-    const namePrompt = createChatBotMessage("Enter your Name");
-    setState((prev) => ({
-      ...prev,
-      messages: [...prev.messages, namePrompt],
-    }));
-
-    setGotItClicked(true);
-    setWaitingForName(true);
-  };
-
-  const handleName = (name) => {
-    dispatch(addName(name));
-    const agePrompt = createChatBotMessage("Select your age", {
-      widget: "ageDropdown", // Register the ageDropdown widget
-    });
-    setState((prev) => ({
-      ...prev,
-      messages: [...prev.messages, agePrompt],
-    }));
-
-    setWaitingForName(false);
-    setWaitingForAge(true);
-  };
-
-  const handleAgeSelect = (age) => {
-    const userMessage = createClientMessage(age);
-    setState((prev) => ({
-      ...prev,
-      messages: [...prev.messages, userMessage],
-    }));
-    if (age) {
-      dispatch(addAge(age));
-      setWaitingForAge(false);
-    }
-   const botMessage = createChatBotMessage("Thank you. In 5 seconds, bot will exit")
-   setState((prev) => ({
-    ...prev,
-    messages: [...prev.messages, botMessage],
-  }));
-
-  setTimeout(() => {
-    
-  }, 5000);
-  };
- */
-
-/*
-   handleGotIt,
-            handleName,
-            handleAgeSelect,
-            gotItClicked,
-            waitingForName,
-            waitingForAge,
-  */

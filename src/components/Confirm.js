@@ -18,8 +18,8 @@ function Confirm() {
         style={{ minHeight: "100vh" }}
       >
         <Grid item xs={12}>
-          <Typography variant="h4" fontWeight="bold" textAlign="center">
-          Your name Sonu aged 23 has been added to student system. You may now exit.
+          <Typography variant="h4" fontWeight="bold" textAlign="center" color="white">
+          Your name {name} aged {age} has been added to student system. You may now exit.
           </Typography>
         </Grid>
       </Grid>
